@@ -41,15 +41,15 @@
       </ion-button>
     </ion-col>
   </ion-row>
-		<!-- ----------------template for Day*-------------------------- >
+    <!--template for Day*-- >
         <ng-template #template1 let-displayEvent="displayEvent">
             <div class="calendar-event-inner" [ngStyle]="{'background-color':displayEvent.event.eventColor}">{{displayEvent.event.title}}</div>
         </ng-template>
-    <!-- ----------------template for Week*-------------------------- -->
+    <!-- template for Week*-->
         <ng-template #template2 let-displayEvent="displayEvent" >
             <div class="calendar-event-inner" [ngStyle]="{'background-color': displayEvent.event.eventColor}">{{displayEvent.event.title}}</div>
     	</ng-template>
-    <!-- ---------------- monthviewDisplayEventTemplate -- ------------->
+    <!-- template for month-->
         <ng-template #template3 let-view="view" let-row="row" let-col="col">
         <div class="calendar-day {{ view.dates[row*7+col].events[0]?.color }}">
           {{view.dates[row*7+col].label}}
@@ -75,15 +75,5 @@
         step="30"
         startingDayWeek="1">
       </calendar>
-
-<ion-row  *ngFor="let item of items"  >
-      <ion-col size="4" text-right>
-          <div [ngStyle]="{'background-color': item.color_cat}" style="width: 40px; height: 20px;float:right;">
-          </div>
-      </ion-col>
-      <ion-col size="8" text-left>
-      <div>{{ item.name_cat }}</div>
-    </ion-col>
-</ion-row>
 
 </ion-content>
