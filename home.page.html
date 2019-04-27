@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Agenda des événements de l'école
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	
+
+<ion-row>
+    <!-- Change the displayed calendar mode -->
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Month</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'" (click)="changeMode('week')">Week</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'" (click)="changeMode('day')">Day</ion-button>
+    </ion-col>
+   </ion-row>
+   <ion-row>
+    <!-- Move back one screen of the slides -->
+    <ion-col size="3" text-left>
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6" >
+      <ion-button fill="clear" >
+        <div>{{viewTitle}}</div>
+      </ion-button>
+    </ion-col>
+    <!-- Move forward one screen of the slides -->
+    <ion-col size="3" text-right>
+      <ion-button fill="clear" (click)="next()">
+        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+		<!-- ----------------template for Day*-------------------------- >
+        <ng-template #template1 let-displayEvent="displayEvent">
+            <div class="calendar-event-inner" [ngStyle]="{'background-color':displayEvent.event.eventColor}">{{displayEvent.event.title}}</div>
+        </ng-template>
+    <!-- ----------------template for Week*-------------------------- -->
+        <ng-template #template2 let-displayEvent="displayEvent" >
+            <div class="calendar-event-inner" [ngStyle]="{'background-color': displayEvent.event.eventColor}">{{displayEvent.event.title}}</div>
+    	</ng-template>
+    <!-- ---------------- monthviewDisplayEventTemplate -- ------------->
+        <ng-template #template3 let-view="view" let-row="row" let-col="col">
+        <div class="calendar-day {{ view.dates[row*7+col].events[0]?.color }}">
+          {{view.dates[row*7+col].label}}
+        </div>
+    	    <ul  *ngFor="let obj of view.dates[row*7+col].events"  >
+    	        <li [ngStyle]="{'background-color': obj.eventColor}" style="height: 7px; width: 7px;border-radius: 50%">
+    	        </li>
+    	    </ul>
+      </ng-template>
+
+  <calendar 
+  		[monthviewDisplayEventTemplate]="template3"
+  		[weekviewNormalEventTemplate]="template2"
+  		[dayviewNormalEventTemplate]="template1"
+  		[eventSource]="eventSource"
+        [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate"
+        (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)"
+        startHour="8"
+        endHour="19"
+        step="30"
+        startingDayWeek="1">
+      </calendar>
+
+<ion-row  *ngFor="let item of items"  >
+      <ion-col size="4" text-right>
+          <div [ngStyle]="{'background-color': item.color_cat}" style="width: 40px; height: 20px;float:right;">
+          </div>
+      </ion-col>
+      <ion-col size="8" text-left>
+      <div>{{ item.name_cat }}</div>
+    </ion-col>
+</ion-row>
+
+</ion-content>
